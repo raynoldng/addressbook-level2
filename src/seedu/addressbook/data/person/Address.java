@@ -1,6 +1,8 @@
 package seedu.addressbook.data.person;
 
 import seedu.addressbook.data.exception.IllegalValueException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a Person's address in the address book.
@@ -8,11 +10,23 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Address {
 
-    public static final String EXAMPLE = "123, some street";
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
-    public static final String ADDRESS_VALIDATION_REGEX = ".+";
+    // format: BLOCK, STREET, UNIT, POSTAL_CODE
+    public static final String EXAMPLE = "123, Clementi Ave 3, #12-34, 231534";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses should be in the format of: " +
+            "'a/BLOCK, STREET, UNIT, POSTAL_CODE'";
+    public static final String ADDRESS_VALIDATION_REGEX = "(.+), (.+), (.+), (.+)";
 
+    private static final int BLOCK_INDEX = 1;
+    private static final int STREET_INDEX = 2;
+    private static final int UNIT_INDEX = 3;
+    private static final int POSTAL_CODE_INDEX = 4;
+
+    private final Block block;
+    private final Street street;
+    private final Unit unit;
+    private final PostalCode postalCode;
     public final String value;
+
     private boolean isPrivate;
 
     /**
@@ -22,11 +36,19 @@ public class Address {
      */
     public Address(String address, boolean isPrivate) throws IllegalValueException {
         String trimmedAddress = address.trim();
-        this.isPrivate = isPrivate;
-        if (!isValidAddress(trimmedAddress)) {
+        Pattern regexPattern = Pattern.compile(ADDRESS_VALIDATION_REGEX);
+        Matcher matcher = regexPattern.matcher(trimmedAddress);
+        if (matcher.find()) {
+            this.block = new Block(matcher.group(BLOCK_INDEX));
+            this.street = new Street(matcher.group(STREET_INDEX));
+            this.unit = new Unit(matcher.group(UNIT_INDEX));
+            this.postalCode = new PostalCode(matcher.group(POSTAL_CODE_INDEX));
+        } else {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        this.value = trimmedAddress;
+        this.isPrivate = isPrivate;
+        this.value = String.format("%s, %s, %s, %s", block.toString(), street.toString(), unit.toString(),
+                postalCode.toString());
     }
 
     /**
@@ -55,5 +77,21 @@ public class Address {
 
     public boolean isPrivate() {
         return isPrivate;
+    }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public Street getStreet() {
+        return street;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public PostalCode getPostalCode() {
+        return postalCode;
     }
 }
