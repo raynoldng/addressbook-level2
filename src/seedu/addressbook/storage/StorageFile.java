@@ -67,6 +67,7 @@ public class StorageFile {
      * @throws InvalidStorageFilePathException if the given file path is invalid
      */
     public StorageFile(String filePath) throws InvalidStorageFilePathException {
+        System.out.println("path: " + filePath);
         try {
             jaxbContext = JAXBContext.newInstance(AdaptedAddressBook.class);
         } catch (JAXBException jaxbe) {

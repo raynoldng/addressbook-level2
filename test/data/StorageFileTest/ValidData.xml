@@ -10,7 +10,7 @@
         <name>Betsy Crowe</name>
         <phone isPrivate="true">1234567</phone>
         <email isPrivate="false">betsycrowe@gmail.com</email>
-        <address isPrivate="true">Newgate Prison</address>
+        <address isPrivate="true">123, Newgate Prison, #23-45, 324678</address>
         <tagged>friend</tagged>
         <tagged>criminal</tagged>
     </persons>
