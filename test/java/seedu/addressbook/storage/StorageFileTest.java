@@ -86,7 +86,6 @@ public class StorageFileTest {
         AddressBook ab = getTestAddressBook();
         StorageFile storage = getTempStorage();
         storage.save(ab);
-        System.out.println("huh banana");
         assertStorageFilesEqual(storage, getStorage("ValidData.xml"));
     }
 
