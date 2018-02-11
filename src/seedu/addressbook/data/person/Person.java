@@ -10,6 +10,12 @@ import java.util.Objects;
  */
 public class Person implements ReadOnlyPerson {
 
+    public static int nextSequenceNumber = 0;
+
+    /**
+     * Each person has a unique sequence number
+     */
+    private final int sequenceNumber;
     private Name name;
     private Phone phone;
     private Email email;
@@ -20,6 +26,9 @@ public class Person implements ReadOnlyPerson {
      * Assumption: Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
+        this.sequenceNumber = nextSequenceNumber;
+        nextSequenceNumber++;
+
         this.name = name;
         this.phone = phone;
         this.email = email;
