@@ -21,6 +21,13 @@ import seedu.addressbook.data.exception.DuplicateDataException;
 public class UniquePersonList implements Iterable<Person> {
 
     /**
+     * Stably sort by name
+     */
+    public void sortByName() {
+        Collections.sort(internalList);
+    }
+
+    /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
     public static class DuplicatePersonException extends DuplicateDataException {
