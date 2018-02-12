@@ -34,4 +34,15 @@ public class Utils {
         }
         return true;
     }
+
+    /**
+     * Returns new set with all strings converted to lower case
+     */
+    public static Set<String> convertStringsToLowerCase(Set<String> keywords) {
+        Set<String> keywordsInLowerCase = new HashSet<>();
+        for(String str : keywords) {
+            keywordsInLowerCase.add(str.toLowerCase());
+        }
+        return keywordsInLowerCase;
+    }
 }
