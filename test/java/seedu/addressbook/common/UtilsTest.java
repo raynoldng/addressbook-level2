@@ -3,8 +3,7 @@ package seedu.addressbook.common;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import org.junit.Test;
 
@@ -34,6 +33,17 @@ public class UtilsTest {
         assertNotUnique(null, 1, new Integer(1));
         assertNotUnique(null, null);
         assertNotUnique(null, "a", "b", null);
+    }
+
+    @Test
+    public void keywordsAreLowerCase() {
+        Set<String> keywords = new HashSet<>();
+        Collections.addAll(keywords, "Alice", "bob", "PETER", "ToM");
+        Set<String> keywordsLowerCase = Utils.convertStringsToLowerCase(keywords);
+
+        for(String keyword : keywordsLowerCase) {
+            assertTrue(keyword.equals(keyword.toLowerCase()));
+        }
     }
 
     private void assertAreUnique(Object... objects) {
